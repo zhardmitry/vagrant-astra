@@ -1,0 +1,23 @@
+---
+
+- name: Set up Prometheus & Grafana
+  
+  hosts: all
+  become: true
+  
+  tasks:
+
+  - name: Install packages
+    apt:
+      pkg:
+        - docker.io
+        - docker-compose  
+        - prometheus-node-exporter
+
+  - name: Run docker-compose up
+    docker_compose: 
+      project_src: /home/vagrant/services
+      files: compose.yml
+      state: present
+
+
